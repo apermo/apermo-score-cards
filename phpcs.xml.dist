@@ -36,6 +36,38 @@
         </properties>
         <!-- Test bootstrap uses standard WP test globals, not plugin globals. -->
         <exclude-pattern>tests/bootstrap.php</exclude-pattern>
+        <!--
+            Block render templates are top-level scripts called by WP_Block;
+            their locals look like file-scope vars to PHPCS even though
+            they're scoped to the render context. WPCS over-flags them.
+        -->
+        <exclude-pattern>src/blocks/*/render.php</exclude-pattern>
+    </rule>
+
+    <!--
+        Block render templates run at file scope under WP_Block::render;
+        their locals look like top-level vars to PHPCS and trigger a slew of
+        sniffs that don't apply to render templates (short loop vars,
+        Yoda, assignment alignment, $post overrides from the_post()).
+        Skip the strict sniffs on these files.
+    -->
+    <rule ref="Generic.ControlStructures.DisallowYodaConditions">
+        <exclude-pattern>src/blocks/*/render.php</exclude-pattern>
+    </rule>
+    <rule ref="Apermo.NamingConventions.MinimumVariableNameLength">
+        <exclude-pattern>src/blocks/*/render.php</exclude-pattern>
+    </rule>
+    <rule ref="Apermo.Formatting.ConsistentAssignmentAlignment">
+        <exclude-pattern>src/blocks/*/render.php</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.WP.GlobalVariablesOverride">
+        <exclude-pattern>src/blocks/*/render.php</exclude-pattern>
+    </rule>
+    <rule ref="Universal.FunctionDeclarations.NoLongClosures">
+        <exclude-pattern>src/blocks/*/render.php</exclude-pattern>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable">
+        <exclude-pattern>src/blocks/*/render.php</exclude-pattern>
     </rule>
 
     <config name="minimum_wp_version" value="6.4"/>

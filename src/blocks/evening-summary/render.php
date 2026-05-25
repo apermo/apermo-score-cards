@@ -100,7 +100,7 @@ foreach ( $players as $player ) {
 // Winner gets N points (N = number of players), second N-1, ..., last gets 1.
 // Players who didn't play a game get 0.
 $player_points    = \array_fill_keys( $all_player_ids, 0 );
-$player_positions = []; // player_id => array of positions per game
+$player_positions = []; // player_id => array of positions per game.
 
 foreach ( $all_player_ids as $player_id ) {
 	$player_positions[ $player_id ] = [];

@@ -1,0 +1,745 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Block_Bindings.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Block_Bindings\:\:get_binding_value\(\) has parameter \$source_args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Block_Bindings.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Block_Bindings\:\:get_game_data\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Block_Bindings.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Block_Bindings\:\:get_game_players\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Block_Bindings.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, array\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 2
+			path: src/Block_Bindings.php
+
+		-
+			message: '#^Constant ASC_PLUGIN_DIR not found\.$#'
+			identifier: constant.notFound
+			count: 7
+			path: src/Blocks.php
+
+		-
+			message: '#^Constant ASC_PLUGIN_URL not found\.$#'
+			identifier: constant.notFound
+			count: 5
+			path: src/Blocks.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Blocks\:\:get_registered_game_types\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Blocks.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Blocks\:\:register_game_type\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Blocks.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Blocks\:\:\$game_block_types type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Blocks.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Capabilities\:\:map_meta_cap\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Capabilities.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Capabilities\:\:map_meta_cap\(\) has parameter \$caps with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Capabilities.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Capabilities\:\:map_meta_cap\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Capabilities.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, WP_Post\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 2
+			path: src/Capabilities.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, int given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Capabilities.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, WP_Role\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 4
+			path: src/Capabilities.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 2
+			path: src/Darts_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Darts_Renderer\:\:__construct\(\) has parameter \$attributes with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Darts_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Darts_Renderer\:\:get_extra_data_attributes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Darts_Renderer.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, array\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Darts_Renderer.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, int\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Darts_Renderer.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Darts_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Darts_Renderer\:\:\$positions type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Darts_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Darts_Renderer\:\:\$scores type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Darts_Renderer.php
+
+		-
+			message: '#^Short ternary operator is not allowed\. Use null coalesce operator if applicable or consider using long ternary\.$#'
+			identifier: ternary.shortNotAllowed
+			count: 1
+			path: src/Darts_Renderer.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 4
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Game_Renderer\:\:__construct\(\) has parameter \$attributes with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Game_Renderer\:\:build_players_map\(\) has parameter \$players with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Game_Renderer\:\:build_players_map\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Game_Renderer\:\:calculate_positions_higher_wins\(\) has parameter \$final_scores with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Game_Renderer\:\:calculate_positions_higher_wins\(\) has parameter \$players with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Game_Renderer\:\:calculate_positions_lower_wins\(\) has parameter \$final_scores with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Game_Renderer\:\:calculate_positions_lower_wins\(\) has parameter \$players with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Game_Renderer\:\:get_extra_data_attributes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Game_Renderer\:\:render_avatar\(\) has parameter \$player with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Game_Renderer\:\:render_pending_state\(\) has parameter \$players with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, array\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 2
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, array\|null given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Game_Renderer\:\:\$attributes type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Game_Renderer\:\:\$game type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Game_Renderer\:\:\$player_ids type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Game_Renderer\:\:\$players type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Game_Renderer\:\:\$players_map type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Short ternary operator is not allowed\. Use null coalesce operator if applicable or consider using long ternary\.$#'
+			identifier: ternary.shortNotAllowed
+			count: 1
+			path: src/Game_Renderer.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Games.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Games\:\:add_round\(\) has parameter \$round_data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Games.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Games\:\:complete\(\) has parameter \$final_scores with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Games.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Games\:\:get\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Games.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Games\:\:get_all_for_post\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Games.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Games\:\:save\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Games.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Games\:\:update_round\(\) has parameter \$round_data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Games.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, array\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 3
+			path: src/Games.php
+
+		-
+			message: '#^Constant ASC_PLUGIN_BASENAME not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: src/Main.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 4
+			path: src/Phase10_Renderer.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Phase10_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Phase10_Renderer\:\:\$current_phases type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phase10_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Phase10_Renderer\:\:\$final_scores type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phase10_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Phase10_Renderer\:\:\$phase10_completers type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phase10_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Phase10_Renderer\:\:\$positions type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phase10_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Phase10_Renderer\:\:\$rounds type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phase10_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Phase10_Renderer\:\:\$running_totals type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phase10_Renderer.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Players.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Players\:\:format_player\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Players.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Players\:\:get\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Players.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Players\:\:get_all\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Players.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Players\:\:get_all\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Players.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Players\:\:get_by_ids\(\) has parameter \$user_ids with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Players.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Players\:\:get_by_ids\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Players.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 4
+			path: src/Pool_Renderer.php
+
+		-
+			message: '#^Only booleans are allowed in &&, string given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: src/Pool_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Pool_Renderer\:\:\$games_list type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Pool_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Pool_Renderer\:\:\$positions type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Pool_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Pool_Renderer\:\:\$standings type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Pool_Renderer.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 3
+			path: src/REST_API.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\REST_API\:\:get_game_args\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/REST_API.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\REST_API\:\:is_target_block\(\) has parameter \$block with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/REST_API.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\REST_API\:\:update_block_attribute\(\) has parameter \$blocks with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/REST_API.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\REST_API\:\:update_block_attribute\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/REST_API.php
+
+		-
+			message: '#^Only booleans are allowed in &&, array\|null given on the left side\.$#'
+			identifier: booleanAnd.leftNotBoolean
+			count: 1
+			path: src/REST_API.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, WP_Post\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 2
+			path: src/REST_API.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, array\<string, array\|string\|null\>\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/REST_API.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, array\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/REST_API.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 2
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Wizard_Renderer\:\:get_effective_bid\(\) has parameter \$round with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Wizard_Renderer\:\:get_extra_data_attributes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Wizard_Renderer\:\:is_round_incomplete\(\) has parameter \$round with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Method Apermo\\ScoreCards\\Wizard_Renderer\:\:render_round_cells\(\) has parameter \$round with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Wizard_Renderer\:\:\$final_scores type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Wizard_Renderer\:\:\$positions type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Wizard_Renderer\:\:\$rounds type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Property Apermo\\ScoreCards\\Wizard_Renderer\:\:\$running_totals type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between null and mixed will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between null and mixed will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 2
+			path: src/Wizard_Renderer.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/blocks/darts/render.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$attributes has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/blocks/darts/render.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$block contains unknown class Apermo\\ScoreCards\\WP_Block\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/blocks/darts/render.php
+
+		-
+			message: '#^Variable \$attributes might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/blocks/darts/render.php
+
+		-
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/blocks/darts/render.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 9
+			path: src/blocks/evening-summary/render.php
+
+		-
+			message: '#^Offset ''positions'' on non\-empty\-array on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: src/blocks/evening-summary/render.php
+
+		-
+			message: '#^Only booleans are allowed in an elseif condition, string given\.$#'
+			identifier: elseif.condNotBoolean
+			count: 1
+			path: src/blocks/evening-summary/render.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/blocks/evening-summary/render.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$attributes has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/blocks/evening-summary/render.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$block contains unknown class Apermo\\ScoreCards\\WP_Block\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/blocks/evening-summary/render.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_html expects string, float\|int\<0, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/blocks/evening-summary/render.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_html expects string, int\<0, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/blocks/evening-summary/render.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/blocks/phase10/render.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$attributes has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/blocks/phase10/render.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$block contains unknown class Apermo\\ScoreCards\\WP_Block\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/blocks/phase10/render.php
+
+		-
+			message: '#^Variable \$attributes might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/blocks/phase10/render.php
+
+		-
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/blocks/phase10/render.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/blocks/pool/render.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$attributes has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/blocks/pool/render.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$block contains unknown class Apermo\\ScoreCards\\WP_Block\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/blocks/pool/render.php
+
+		-
+			message: '#^Variable \$attributes might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/blocks/pool/render.php
+
+		-
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/blocks/pool/render.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/blocks/wizard/render.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$attributes has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/blocks/wizard/render.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$block contains unknown class Apermo\\ScoreCards\\WP_Block\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/blocks/wizard/render.php
+
+		-
+			message: '#^Variable \$attributes might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/blocks/wizard/render.php
+
+		-
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/blocks/wizard/render.php
