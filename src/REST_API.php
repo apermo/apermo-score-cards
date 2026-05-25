@@ -656,7 +656,7 @@ class REST_API {
 	 * @param bool   $found     Reference to found flag.
 	 * @return array Updated blocks.
 	 */
-	private static function update_block_attribute( array $blocks, string $block_id, string $attr_name, $value, bool &$found ): array {
+	private static function update_block_attribute( array $blocks, string $block_id, string $attr_name, mixed $value, bool &$found ): array {
 		foreach ( $blocks as &$block ) {
 			if ( isset( $block['attrs']['blockId'] ) && $block['attrs']['blockId'] === $block_id ) {
 				$block['attrs'][ $attr_name ] = $value;

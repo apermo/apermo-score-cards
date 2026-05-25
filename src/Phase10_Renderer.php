@@ -179,7 +179,7 @@ class Phase10_Renderer extends Game_Renderer {
 				\printf(
 					/* translators: %d: round number */
 					esc_html__( 'Round %d', 'apermo-score-cards' ),
-					$this->current_round,
+					(int) $this->current_round,
 				);
 				?>
 			</p>
@@ -239,7 +239,7 @@ class Phase10_Renderer extends Game_Renderer {
 								$medal         = self::$medals[ $position ] ?? '';
 								$finished_game = isset( $this->phase10_completers[ $pid ] );
 								?>
-								<td class="asc-phase10-display__total-score <?php echo $position <= 3 ? 'asc-phase10-display__total-score--position-' . $position : ''; ?> <?php echo $finished_game ? 'asc-phase10-display__total-score--finished' : ''; ?>">
+								<td class="asc-phase10-display__total-score <?php echo $position <= 3 ? 'asc-phase10-display__total-score--position-' . (int) $position : ''; ?> <?php echo $finished_game ? 'asc-phase10-display__total-score--finished' : ''; ?>">
 									<?php if ( $medal ) { ?>
 										<span class="asc-phase10-display__medal"><?php echo esc_html( $medal ); ?></span>
 									<?php } ?>

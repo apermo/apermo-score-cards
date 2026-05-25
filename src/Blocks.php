@@ -206,6 +206,8 @@ class Blocks {
 		 * Filter to register game types.
 		 *
 		 * @param array $game_types Array of game type configurations.
+		 *
+		 * @return array Filtered array of game type configurations.
 		 */
 		return apply_filters( 'apermo_score_cards_game_types', [] );
 	}

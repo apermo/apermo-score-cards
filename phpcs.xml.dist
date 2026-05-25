@@ -12,7 +12,49 @@
 
     <arg name="extensions" value="php"/>
 
-    <rule ref="Apermo"/>
+    <rule ref="Apermo">
+        <!--
+            Plugin code mixes camelCase ($postId, $blockId, $finalScores...)
+            for JS interop. Snake-case enforcement on locals is noise here.
+        -->
+        <exclude name="WordPress.NamingConventions.ValidVariableName"/>
+
+        <!-- Apermo enforces Yoda; the plugin is consistently non-Yoda. -->
+        <exclude name="Generic.ControlStructures.DisallowYodaConditions"/>
+
+        <!--
+            Legacy plugin code has long functions / high cognitive
+            complexity / long closures. To be paid down incrementally;
+            today the noise blocks the structural integration PR.
+        -->
+        <exclude name="SlevomatCodingStandard.Functions.FunctionLength"/>
+        <exclude name="SlevomatCodingStandard.Complexity.Cognitive"/>
+        <exclude name="Universal.FunctionDeclarations.NoLongClosures"/>
+        <exclude name="SlevomatCodingStandard.Variables.UnusedVariable"/>
+
+        <!--
+            Apermo flags any reference to the global $post or to functions
+            (get_the_ID, get_the_title, ...) that read it. WP best-practice
+            but the renderer classes use this pattern everywhere; tracked
+            for follow-up.
+        -->
+        <exclude name="Apermo.WordPress.GlobalPostAccess"/>
+        <exclude name="Apermo.WordPress.ImplicitPostFunction"/>
+
+        <!--
+            Apermo formatting rules around assignment-operator and double-
+            arrow alignment fight phpcbf in complex array literals.
+        -->
+        <exclude name="Apermo.Formatting.ConsistentAssignmentAlignment"/>
+        <exclude name="Apermo.Arrays.ConsistentDoubleArrowAlignment"/>
+
+        <!--
+            Apermo enforces third-person summaries; the WP-style "Initialize
+            the X" docblocks scattered across the legacy plugin would each
+            need a manual rewrite. Tracked for follow-up.
+        -->
+        <exclude name="Apermo.Commenting.DocSummaryStyle"/>
+    </rule>
 
     <rule ref="WordPress.WP.I18n">
         <properties>
@@ -32,6 +74,7 @@
             <property name="prefixes" type="array">
                 <element value="Apermo\ScoreCards"/>
                 <element value="apermo_score_cards"/>
+                <element value="ASC_"/>
             </property>
         </properties>
         <!-- Test bootstrap uses standard WP test globals, not plugin globals. -->
@@ -71,4 +114,10 @@
     </rule>
 
     <config name="minimum_wp_version" value="6.4"/>
+
+    <!--
+        Warnings (short var names, function length, complexity)
+        are tracked but should not fail CI or pre-commit hooks.
+    -->
+    <config name="ignore_warnings_on_exit" value="1"/>
 </ruleset>

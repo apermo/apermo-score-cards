@@ -332,7 +332,7 @@ class Pool_Renderer extends Game_Renderer {
 									\printf(
 										/* translators: %d: number of balls left */
 										esc_html__( '%d balls left', 'apermo-score-cards' ),
-										$g['ballsLeft'],
+										(int) $g['ballsLeft'],
 									);
 									?>
 								</span>

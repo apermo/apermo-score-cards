@@ -210,7 +210,7 @@ class Darts_Renderer extends Game_Renderer {
 					\printf(
 						/* translators: %d: round number */
 						esc_html__( 'Finished after round %d', 'apermo-score-cards' ),
-						$this->finished_round,
+						(int) $this->finished_round,
 					);
 					?>
 				</p>

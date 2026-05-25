@@ -211,7 +211,7 @@ class Wizard_Renderer extends Game_Renderer {
 			\printf(
 				/* translators: %d: total rounds */
 				esc_html__( '%d rounds', 'apermo-score-cards' ),
-				$this->total_rounds,
+				(int) $this->total_rounds,
 			);
 			?>
 		</span>
@@ -233,15 +233,15 @@ class Wizard_Renderer extends Game_Renderer {
 					\printf(
 						/* translators: 1: current round, 2: total rounds */
 						esc_html__( 'Round %1$d / %2$d (in progress)', 'apermo-score-cards' ),
-						$this->current_round,
-						$this->total_rounds,
+						(int) $this->current_round,
+						(int) $this->total_rounds,
 					);
 				} else {
 					\printf(
 						/* translators: 1: current round, 2: total rounds */
 						esc_html__( 'Round %1$d / %2$d', 'apermo-score-cards' ),
-						$this->completed_rounds,
-						$this->total_rounds,
+						(int) $this->completed_rounds,
+						(int) $this->total_rounds,
 					);
 				}
 				?>
@@ -299,7 +299,7 @@ class Wizard_Renderer extends Game_Renderer {
 								$position = $this->positions[ $pid ] ?? 0;
 								$medal    = self::$medals[ $position ] ?? '';
 								?>
-								<td colspan="3" class="asc-wizard-display__total-score <?php echo $position <= 3 ? 'asc-wizard-display__total-score--position-' . $position : ''; ?>">
+								<td colspan="3" class="asc-wizard-display__total-score <?php echo $position <= 3 ? 'asc-wizard-display__total-score--position-' . (int) $position : ''; ?>">
 									<?php if ( $medal ) { ?>
 										<span class="asc-wizard-display__medal"><?php echo esc_html( $medal ); ?></span>
 									<?php } ?>
