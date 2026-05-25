@@ -35,7 +35,7 @@ jobs:
         with:
             php-versions: >-
                 ${{ github.event_name == 'push'
-                    && '["8.2","8.3","8.4"]'
-                    || '["8.2","8.4"]' }}
+                    && '["8.3","8.4"]'
+                    || '["8.3","8.4"]' }}
             wp-versions: ${{ needs.detect-wp-minimum.outputs.wp-versions }}
             multisite: 'both'
