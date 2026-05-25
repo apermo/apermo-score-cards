@@ -1,6 +1,6 @@
 {
     "name": "apermo/apermo-score-cards",
-    "description": "A WordPress apermo-score-cards plugin.",
+    "description": "Gutenberg blocks for card and board game score cards with automatic calculations.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "authors": [
@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.3"
     },
     "require-dev": {
         "apermo/apermo-coding-standards": "^3.0",
