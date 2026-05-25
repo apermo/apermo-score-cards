@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 /**
- * Confirmation screen for plugin-name deactivation.
+ * Confirmation screen for apermo-score-cards deactivation.
  *
- * Variables provided by Plugin_Name\Admin\DeactivationFlow::render_confirm_page():
+ * Variables provided by Apermo_Score_Cards\Admin\DeactivationFlow::render_confirm_page():
  *
  * @var string $deactivate    Standard WP deactivate URL (with nonce) for the "keep data" path.
  * @var string $delete_url    admin.php URL the destructive form submits to.
@@ -20,39 +20,39 @@ declare(strict_types=1);
 
 ?>
 <div class="wrap">
-	<h1><?php esc_html_e( 'Deactivate plugin-name', 'plugin-name' ); ?></h1>
+	<h1><?php esc_html_e( 'Deactivate apermo-score-cards', 'apermo-score-cards' ); ?></h1>
 
 	<p>
-		<?php esc_html_e( 'Choose what should happen to data captured by this plugin.', 'plugin-name' ); ?>
+		<?php esc_html_e( 'Choose what should happen to data captured by this plugin.', 'apermo-score-cards' ); ?>
 	</p>
 
 	<div class="card" style="max-width: 720px;">
-		<h2><?php esc_html_e( 'Keep data (recommended)', 'plugin-name' ); ?></h2>
+		<h2><?php esc_html_e( 'Keep data (recommended)', 'apermo-score-cards' ); ?></h2>
 		<p>
 			<?php
 			esc_html_e(
 				'Plugin settings and any captured data stay in the database. Reactivating the plugin restores everything.',
-				'plugin-name',
+				'apermo-score-cards',
 			);
 			?>
 		</p>
 		<p>
 			<a href="<?php echo esc_url( $deactivate ); ?>" class="button button-primary">
-				<?php esc_html_e( 'Deactivate (keep data)', 'plugin-name' ); ?>
+				<?php esc_html_e( 'Deactivate (keep data)', 'apermo-score-cards' ); ?>
 			</a>
 		</p>
 	</div>
 
 	<div class="card" style="max-width: 720px; border-left: 4px solid #d63638;">
 		<h2 style="color: #d63638;">
-			<?php esc_html_e( 'Permanently delete all plugin data', 'plugin-name' ); ?>
+			<?php esc_html_e( 'Permanently delete all plugin data', 'apermo-score-cards' ); ?>
 		</h2>
-		<p><strong><?php esc_html_e( 'This cannot be undone.', 'plugin-name' ); ?></strong></p>
+		<p><strong><?php esc_html_e( 'This cannot be undone.', 'apermo-score-cards' ); ?></strong></p>
 		<p>
 			<?php
 			esc_html_e(
 				'Plugin options, captured data, and transients owned by this plugin are removed before the plugin is deactivated.',
-				'plugin-name',
+				'apermo-score-cards',
 			);
 			?>
 		</p>
@@ -64,13 +64,13 @@ declare(strict_types=1);
 			<p>
 				<label>
 					<input type="checkbox" name="confirm" value="1" />
-					<?php esc_html_e( 'I understand all plugin-owned data will be permanently deleted.', 'plugin-name' ); ?>
+					<?php esc_html_e( 'I understand all plugin-owned data will be permanently deleted.', 'apermo-score-cards' ); ?>
 				</label>
 			</p>
 
 			<p>
 				<button type="submit" class="button button-secondary" style="color: #d63638; border-color: #d63638;">
-					<?php esc_html_e( 'Delete data and deactivate', 'plugin-name' ); ?>
+					<?php esc_html_e( 'Delete data and deactivate', 'apermo-score-cards' ); ?>
 				</button>
 			</p>
 		</form>

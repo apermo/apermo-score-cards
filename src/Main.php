@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Plugin_Name;
+namespace Apermo\ScoreCards;
 
 // OPT-IN: confirm-deactivate — delete this use statement if you declined the example.
-use Plugin_Name\Admin\DeactivationFlow;
+use Apermo\ScoreCards\Admin\DeactivationFlow;
 
 /**
  * Bootstraps the plugin.
