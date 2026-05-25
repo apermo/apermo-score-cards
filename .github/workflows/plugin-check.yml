@@ -17,3 +17,21 @@ jobs:
         # (different repo slug) will run it normally.
         if: github.repository != 'apermo/template-wordpress'
         uses: apermo/reusable-workflows/.github/workflows/reusable-plugin-check.yml@main
+        with:
+            # Skip dev tooling that .distignore already excludes from
+            # production. The action's repo-mode scan doesn't auto-apply
+            # .distignore, so we exclude here as well.
+            exclude-directories: 'tests,e2e,.github,.ddev,.husky,.gemini,vendor,node_modules,build,.auth,playwright-report,test-results'
+            # Suppress codes that are aspirational rather than blocking for
+            # a plugin distributed via Composer (not yet on WP.org):
+            #   - missing_direct_file_access_protection: PSR-4 autoloaded
+            #     classes can't be hit directly; render.php files are
+            #     called by WP_Block, not via URL.
+            #   - hidden_files / application_detected: .distignore handles
+            #     these in the distributed zip; CI scans the dev checkout.
+            #   - unexpected_md_file: CLAUDE.md is dev documentation.
+            #   - domain_path_mismatch: tracked, languages/ dir not yet
+            #     created.
+            #   - discouraged_function_load_plugin_textdomain: still
+            #     needed for the Composer-loaded case (no WP.org auto-load).
+            ignore-codes: 'missing_direct_file_access_protection,hidden_files,application_detected,unexpected_md_file,domain_path_mismatch,discouraged_function_load_plugin_textdomain'
