@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Apermo\ScoreCards;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( ! \defined( 'ABSPATH' ) ) {
+	exit();
 }
 
 /**
@@ -23,11 +23,11 @@ trait Base_Render {
 	 *
 	 * @var array<int, string>
 	 */
-	protected static array $medals = array(
+	protected static array $medals = [
 		1 => '🥇',
 		2 => '🥈',
 		3 => '🥉',
-	);
+	];
 
 	/**
 	 * Calculate positions with tie handling (higher score wins).
@@ -37,7 +37,7 @@ trait Base_Render {
 	 * @return array<int, int> Positions keyed by player ID.
 	 */
 	protected static function calculate_positions_higher_wins( array $players, array $final_scores ): array {
-		$positions        = array();
+		$positions        = [];
 		$current_position = 1;
 		$previous_score   = null;
 
@@ -73,7 +73,7 @@ trait Base_Render {
 	 * @return array<int, array> Players keyed by ID.
 	 */
 	protected static function build_players_map( array $players ): array {
-		$map = array();
+		$map = [];
 		foreach ( $players as $player ) {
 			$map[ $player['id'] ] = $player;
 		}
@@ -89,10 +89,10 @@ trait Base_Render {
 	 */
 	protected static function render_avatar( array $player, string $css_class ): void {
 		if ( ! empty( $player['avatarUrl'] ) ) {
-			printf(
+			\printf(
 				'<img src="%s" alt="" class="%s" />',
 				esc_url( $player['avatarUrl'] ),
-				esc_attr( $css_class )
+				esc_attr( $css_class ),
 			);
 		}
 	}
@@ -106,10 +106,10 @@ trait Base_Render {
 	 */
 	protected static function render_status_badge( string $status, string $prefix ): void {
 		if ( 'completed' === $status ) {
-			printf(
+			\printf(
 				'<span class="%1$s__status %1$s__status--completed">%2$s</span>',
 				esc_attr( $prefix ),
-				esc_html__( 'Completed', 'apermo-score-cards' )
+				esc_html__( 'Completed', 'apermo-score-cards' ),
 			);
 		}
 	}
@@ -125,10 +125,10 @@ trait Base_Render {
 		$medal = self::$medals[ $position ] ?? '';
 
 		if ( $medal ) {
-			printf(
+			\printf(
 				'<span class="%s">%s</span>',
 				esc_attr( $css_class ),
-				esc_html( $medal )
+				esc_html( $medal ),
 			);
 		} else {
 			echo esc_html( (string) $position );
@@ -155,7 +155,7 @@ trait Base_Render {
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ( $players as $index => $player ) : ?>
+					<?php foreach ( $players as $index => $player ) { ?>
 						<tr>
 							<td><?php echo esc_html( (string) ( $index + 1 ) ); ?></td>
 							<td class="<?php echo esc_attr( $table_class . '__player' ); ?>">
@@ -163,7 +163,7 @@ trait Base_Render {
 								<span><?php echo esc_html( $player['name'] ); ?></span>
 							</td>
 						</tr>
-					<?php endforeach; ?>
+					<?php } ?>
 				</tbody>
 			</table>
 		</div>

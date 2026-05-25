@@ -12,9 +12,10 @@ namespace Apermo\ScoreCards;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
+use WP_REST_Server;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( ! \defined( 'ABSPATH' ) ) {
+	exit();
 }
 
 /**
@@ -35,7 +36,7 @@ class REST_API {
 	 * @return void
 	 */
 	public static function init(): void {
-		add_action( 'rest_api_init', array( self::class, 'register_routes' ) );
+		add_action( 'rest_api_init', [ self::class, 'register_routes' ] );
 	}
 
 	/**
@@ -48,136 +49,136 @@ class REST_API {
 		register_rest_route(
 			self::NAMESPACE,
 			'/players',
-			array(
-				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => array( self::class, 'get_players' ),
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ self::class, 'get_players' ],
 				'permission_callback' => '__return_true',
-			)
+			],
 		);
 
 		// Game data endpoints.
 		register_rest_route(
 			self::NAMESPACE,
 			'/posts/(?P<post_id>\d+)/games/(?P<block_id>[a-zA-Z0-9-]+)',
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( self::class, 'get_game' ),
+			[
+				[
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => [ self::class, 'get_game' ],
 					'permission_callback' => '__return_true',
-				),
-				array(
-					'methods'             => \WP_REST_Server::CREATABLE,
-					'callback'            => array( self::class, 'save_game' ),
-					'permission_callback' => array( self::class, 'can_manage_scorecard' ),
+				],
+				[
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => [ self::class, 'save_game' ],
+					'permission_callback' => [ self::class, 'can_manage_scorecard' ],
 					'args'                => self::get_game_args(),
-				),
-				array(
-					'methods'             => \WP_REST_Server::EDITABLE,
-					'callback'            => array( self::class, 'save_game' ),
-					'permission_callback' => array( self::class, 'can_manage_scorecard' ),
+				],
+				[
+					'methods'             => WP_REST_Server::EDITABLE,
+					'callback'            => [ self::class, 'save_game' ],
+					'permission_callback' => [ self::class, 'can_manage_scorecard' ],
 					'args'                => self::get_game_args(),
-				),
-				array(
-					'methods'             => \WP_REST_Server::DELETABLE,
-					'callback'            => array( self::class, 'delete_game' ),
-					'permission_callback' => array( self::class, 'can_manage_scorecard' ),
-				),
-			)
+				],
+				[
+					'methods'             => WP_REST_Server::DELETABLE,
+					'callback'            => [ self::class, 'delete_game' ],
+					'permission_callback' => [ self::class, 'can_manage_scorecard' ],
+				],
+			],
 		);
 
 		// Round endpoints.
 		register_rest_route(
 			self::NAMESPACE,
 			'/posts/(?P<post_id>\d+)/games/(?P<block_id>[a-zA-Z0-9-]+)/rounds',
-			array(
-				'methods'             => \WP_REST_Server::CREATABLE,
-				'callback'            => array( self::class, 'add_round' ),
-				'permission_callback' => array( self::class, 'can_manage_scorecard' ),
-				'args'                => array(
-					'roundData' => array(
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ self::class, 'add_round' ],
+				'permission_callback' => [ self::class, 'can_manage_scorecard' ],
+				'args'                => [
+					'roundData' => [
 						'type'     => 'object',
 						'required' => true,
-					),
-				),
-			)
+					],
+				],
+			],
 		);
 
 		register_rest_route(
 			self::NAMESPACE,
 			'/posts/(?P<post_id>\d+)/games/(?P<block_id>[a-zA-Z0-9-]+)/rounds/(?P<round_index>\d+)',
-			array(
-				'methods'             => \WP_REST_Server::EDITABLE,
-				'callback'            => array( self::class, 'update_round' ),
-				'permission_callback' => array( self::class, 'can_manage_scorecard' ),
-				'args'                => array(
-					'roundData' => array(
+			[
+				'methods'             => WP_REST_Server::EDITABLE,
+				'callback'            => [ self::class, 'update_round' ],
+				'permission_callback' => [ self::class, 'can_manage_scorecard' ],
+				'args'                => [
+					'roundData' => [
 						'type'     => 'object',
 						'required' => true,
-					),
-				),
-			)
+					],
+				],
+			],
 		);
 
 		// Complete game endpoint.
 		register_rest_route(
 			self::NAMESPACE,
 			'/posts/(?P<post_id>\d+)/games/(?P<block_id>[a-zA-Z0-9-]+)/complete',
-			array(
-				'methods'             => \WP_REST_Server::CREATABLE,
-				'callback'            => array( self::class, 'complete_game' ),
-				'permission_callback' => array( self::class, 'can_manage_scorecard' ),
-				'args'                => array(
-					'finalScores' => array(
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ self::class, 'complete_game' ],
+				'permission_callback' => [ self::class, 'can_manage_scorecard' ],
+				'args'                => [
+					'finalScores' => [
 						'type'     => 'object',
 						'required' => true,
-					),
-					'winnerId'    => array(
+					],
+					'winnerId'    => [
 						'type'              => 'integer',
 						'required'          => true,
 						'sanitize_callback' => 'absint',
-					),
-				),
-			)
+					],
+				],
+			],
 		);
 
 		// Permission check endpoint for frontend.
 		register_rest_route(
 			self::NAMESPACE,
 			'/posts/(?P<post_id>\d+)/can-manage',
-			array(
-				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => array( self::class, 'check_can_manage' ),
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ self::class, 'check_can_manage' ],
 				'permission_callback' => '__return_true',
-			)
+			],
 		);
 
 		// Duplicate block endpoint.
 		register_rest_route(
 			self::NAMESPACE,
 			'/posts/(?P<post_id>\d+)/duplicate-block/(?P<block_id>[a-zA-Z0-9-]+)',
-			array(
-				'methods'             => \WP_REST_Server::CREATABLE,
-				'callback'            => array( self::class, 'duplicate_block' ),
-				'permission_callback' => array( self::class, 'can_manage_scorecard' ),
-			)
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ self::class, 'duplicate_block' ],
+				'permission_callback' => [ self::class, 'can_manage_scorecard' ],
+			],
 		);
 
 		// Update block players endpoint.
 		register_rest_route(
 			self::NAMESPACE,
 			'/posts/(?P<post_id>\d+)/blocks/(?P<block_id>[a-zA-Z0-9-]+)/players',
-			array(
-				'methods'             => \WP_REST_Server::CREATABLE,
-				'callback'            => array( self::class, 'update_block_players' ),
-				'permission_callback' => array( self::class, 'can_manage_scorecard' ),
-				'args'                => array(
-					'playerIds' => array(
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ self::class, 'update_block_players' ],
+				'permission_callback' => [ self::class, 'can_manage_scorecard' ],
+				'args'                => [
+					'playerIds' => [
 						'type'     => 'array',
 						'required' => true,
-						'items'    => array( 'type' => 'integer' ),
-					),
-				),
-			)
+						'items'    => [ 'type' => 'integer' ],
+					],
+				],
+			],
 		);
 	}
 
@@ -198,7 +199,7 @@ class REST_API {
 				return new WP_Error(
 					'rest_forbidden',
 					__( 'You do not have permission to manage score cards.', 'apermo-score-cards' ),
-					array( 'status' => 403 )
+					[ 'status' => 403 ],
 				);
 			}
 
@@ -206,10 +207,10 @@ class REST_API {
 			return new WP_Error(
 				'rest_forbidden_time',
 				__( 'The edit window for this score card has closed (8 hours after last post update).', 'apermo-score-cards' ),
-				array(
+				[
 					'status'        => 403,
 					'post_modified' => get_post_modified_time( 'c', true, $post_id ),
-				)
+				],
 			);
 		}
 
@@ -232,15 +233,15 @@ class REST_API {
 		$remaining_human = Capabilities::get_remaining_edit_time_human( $post_id );
 
 		return new WP_REST_Response(
-			array(
+			[
 				'canManage'          => $can_manage,
 				'hasCapability'      => $has_capability,
 				'withinEditWindow'   => $within_window,
 				'remainingSeconds'   => $remaining_time,
 				'remainingHuman'     => $remaining_human,
-				'editWindowHours'    => Capabilities::EDIT_WINDOW_SECONDS / HOUR_IN_SECONDS,
-			),
-			200
+				'editWindowHours'    => Capabilities::EDIT_WINDOW_SECONDS / \HOUR_IN_SECONDS,
+			],
+			200,
 		);
 	}
 
@@ -250,48 +251,48 @@ class REST_API {
 	 * @return array Endpoint arguments.
 	 */
 	private static function get_game_args(): array {
-		return array(
-			'gameType'      => array(
+		return [
+			'gameType'      => [
 				'type'              => 'string',
 				'required'          => true,
 				'sanitize_callback' => 'sanitize_text_field',
-			),
-			'playerIds'     => array(
+			],
+			'playerIds'     => [
 				'type'     => 'array',
 				'required' => true,
-				'items'    => array( 'type' => 'integer' ),
-			),
-			'status'        => array(
+				'items'    => [ 'type' => 'integer' ],
+			],
+			'status'        => [
 				'type'              => 'string',
-				'enum'              => array( 'in_progress', 'completed', 'cancelled' ),
+				'enum'              => [ 'in_progress', 'completed', 'cancelled' ],
 				'sanitize_callback' => 'sanitize_text_field',
-			),
-			'scores'        => array(
+			],
+			'scores'        => [
 				'type' => 'object',
-			),
-			'finalScores'   => array(
+			],
+			'finalScores'   => [
 				'type' => 'object',
-			),
-			'positions'     => array(
+			],
+			'positions'     => [
 				'type' => 'object',
-			),
-			'finishedRound' => array(
+			],
+			'finishedRound' => [
 				'type'              => 'integer',
 				'sanitize_callback' => 'absint',
-			),
-			'winnerId'      => array(
+			],
+			'winnerId'      => [
 				'type'              => 'integer',
 				'sanitize_callback' => 'absint',
-			),
-			'winnerIds'     => array(
+			],
+			'winnerIds'     => [
 				'type'  => 'array',
-				'items' => array( 'type' => 'integer' ),
-			),
-			'games'         => array(
+				'items' => [ 'type' => 'integer' ],
+			],
+			'games'         => [
 				'type'  => 'array',
-				'items' => array( 'type' => 'object' ),
-			),
-		);
+				'items' => [ 'type' => 'object' ],
+			],
+		];
 	}
 
 	/**
@@ -323,7 +324,7 @@ class REST_API {
 			return new WP_Error(
 				'not_found',
 				__( 'Game not found.', 'apermo-score-cards' ),
-				array( 'status' => 404 )
+				[ 'status' => 404 ],
 			);
 		}
 
@@ -341,18 +342,18 @@ class REST_API {
 		$post_id  = (int) $request->get_param( 'post_id' );
 		$block_id = sanitize_text_field( $request->get_param( 'block_id' ) );
 
-		$data = array(
+		$data = [
 			'gameType'      => $request->get_param( 'gameType' ),
 			'playerIds'     => $request->get_param( 'playerIds' ),
 			'status'        => $request->get_param( 'status' ) ?? 'in_progress',
-			'scores'        => $request->get_param( 'scores' ) ?? array(),
-			'finalScores'   => $request->get_param( 'finalScores' ) ?? array(),
-			'positions'     => $request->get_param( 'positions' ) ?? array(),
+			'scores'        => $request->get_param( 'scores' ) ?? [],
+			'finalScores'   => $request->get_param( 'finalScores' ) ?? [],
+			'positions'     => $request->get_param( 'positions' ) ?? [],
 			'finishedRound' => $request->get_param( 'finishedRound' ),
 			'winnerId'      => $request->get_param( 'winnerId' ),
-			'winnerIds'     => $request->get_param( 'winnerIds' ) ?? array(),
-			'games'         => $request->get_param( 'games' ) ?? array(),
-		);
+			'winnerIds'     => $request->get_param( 'winnerIds' ) ?? [],
+			'games'         => $request->get_param( 'games' ) ?? [],
+		];
 
 		$result = Games::save( $post_id, $block_id, $data );
 
@@ -360,7 +361,7 @@ class REST_API {
 			return new WP_Error(
 				'save_failed',
 				__( 'Failed to save game.', 'apermo-score-cards' ),
-				array( 'status' => 500 )
+				[ 'status' => 500 ],
 			);
 		}
 
@@ -386,7 +387,7 @@ class REST_API {
 			return new WP_Error(
 				'delete_failed',
 				__( 'Failed to delete game.', 'apermo-score-cards' ),
-				array( 'status' => 500 )
+				[ 'status' => 500 ],
 			);
 		}
 
@@ -411,7 +412,7 @@ class REST_API {
 			return new WP_Error(
 				'add_round_failed',
 				__( 'Failed to add round.', 'apermo-score-cards' ),
-				array( 'status' => 500 )
+				[ 'status' => 500 ],
 			);
 		}
 
@@ -439,7 +440,7 @@ class REST_API {
 			return new WP_Error(
 				'update_round_failed',
 				__( 'Failed to update round.', 'apermo-score-cards' ),
-				array( 'status' => 500 )
+				[ 'status' => 500 ],
 			);
 		}
 
@@ -467,7 +468,7 @@ class REST_API {
 			return new WP_Error(
 				'complete_failed',
 				__( 'Failed to complete game.', 'apermo-score-cards' ),
-				array( 'status' => 500 )
+				[ 'status' => 500 ],
 			);
 		}
 
@@ -492,7 +493,7 @@ class REST_API {
 			return new WP_Error(
 				'post_not_found',
 				__( 'Post not found.', 'apermo-score-cards' ),
-				array( 'status' => 404 )
+				[ 'status' => 404 ],
 			);
 		}
 
@@ -514,7 +515,7 @@ class REST_API {
 			return new WP_Error(
 				'block_not_found',
 				__( 'Block not found in post.', 'apermo-score-cards' ),
-				array( 'status' => 404 )
+				[ 'status' => 404 ],
 			);
 		}
 
@@ -522,7 +523,7 @@ class REST_API {
 		$duplicate                     = $source_block;
 		$duplicate['attrs']['blockId'] = $new_block_id;
 		$duplicate['innerHTML']        = '';
-		$duplicate['innerContent']     = array();
+		$duplicate['innerContent']     = [];
 
 		// Remove customTitle from duplicate so it gets auto-generated title.
 		unset( $duplicate['attrs']['customTitle'] );
@@ -534,11 +535,11 @@ class REST_API {
 
 		// Update the post.
 		$result = wp_update_post(
-			array(
+			[
 				'ID'           => $post_id,
 				'post_content' => $new_content,
-			),
-			true
+			],
+			true,
 		);
 
 		if ( is_wp_error( $result ) ) {
@@ -546,11 +547,11 @@ class REST_API {
 		}
 
 		return new WP_REST_Response(
-			array(
+			[
 				'success'    => true,
 				'newBlockId' => $new_block_id,
-			),
-			200
+			],
+			200,
 		);
 	}
 
@@ -572,25 +573,25 @@ class REST_API {
 			return new WP_Error(
 				'game_completed',
 				__( 'Cannot change players after game has results.', 'apermo-score-cards' ),
-				array( 'status' => 400 )
+				[ 'status' => 400 ],
 			);
 		}
 
 		// If game has started (has games), validate that players with games are not being removed.
-		$games_list = $game['games'] ?? array();
+		$games_list = $game['games'] ?? [];
 		if ( ! empty( $games_list ) ) {
-			$players_with_games = array();
+			$players_with_games = [];
 			foreach ( $games_list as $g ) {
 				$players_with_games[ $g['player1'] ?? 0 ] = true;
 				$players_with_games[ $g['player2'] ?? 0 ] = true;
 			}
 
-			foreach ( array_keys( $players_with_games ) as $player_id ) {
-				if ( ! in_array( $player_id, $player_ids, true ) ) {
+			foreach ( \array_keys( $players_with_games ) as $player_id ) {
+				if ( ! \in_array( $player_id, $player_ids, true ) ) {
 					return new WP_Error(
 						'cannot_remove_active_player',
 						__( 'Cannot remove players who have already played games.', 'apermo-score-cards' ),
-						array( 'status' => 400 )
+						[ 'status' => 400 ],
 					);
 				}
 			}
@@ -601,7 +602,7 @@ class REST_API {
 			return new WP_Error(
 				'post_not_found',
 				__( 'Post not found.', 'apermo-score-cards' ),
-				array( 'status' => 404 )
+				[ 'status' => 404 ],
 			);
 		}
 
@@ -616,7 +617,7 @@ class REST_API {
 			return new WP_Error(
 				'block_not_found',
 				__( 'Block not found in post.', 'apermo-score-cards' ),
-				array( 'status' => 404 )
+				[ 'status' => 404 ],
 			);
 		}
 
@@ -625,11 +626,11 @@ class REST_API {
 
 		// Update the post.
 		$result = wp_update_post(
-			array(
+			[
 				'ID'           => $post_id,
 				'post_content' => $new_content,
-			),
-			true
+			],
+			true,
 		);
 
 		if ( is_wp_error( $result ) ) {
@@ -637,11 +638,11 @@ class REST_API {
 		}
 
 		return new WP_REST_Response(
-			array(
+			[
 				'success'   => true,
 				'playerIds' => $player_ids,
-			),
-			200
+			],
+			200,
 		);
 	}
 
@@ -661,7 +662,7 @@ class REST_API {
 				$block['attrs'][ $attr_name ] = $value;
 				// Clear innerHTML/innerContent to force re-render.
 				$block['innerHTML']    = '';
-				$block['innerContent'] = array();
+				$block['innerContent'] = [];
 				$found                 = true;
 			}
 

@@ -11,8 +11,10 @@ declare(strict_types=1);
 
 namespace Apermo\ScoreCards;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+use WP_User;
+
+if ( ! \defined( 'ABSPATH' ) ) {
+	exit();
 }
 
 /**
@@ -35,14 +37,14 @@ class Players {
 	 * @param array $args Query arguments.
 	 * @return array Array of player data.
 	 */
-	public static function get_all( array $args = array() ): array {
-		$defaults = array(
+	public static function get_all( array $args = [] ): array {
+		$defaults = [
 			'orderby' => 'display_name',
 			'order'   => 'ASC',
-		);
+		];
 
 		$users   = get_users( wp_parse_args( $args, $defaults ) );
-		$players = array();
+		$players = [];
 
 		foreach ( $users as $user ) {
 			$players[] = self::format_player( $user );
@@ -75,17 +77,17 @@ class Players {
 	 */
 	public static function get_by_ids( array $user_ids ): array {
 		if ( empty( $user_ids ) ) {
-			return array();
+			return [];
 		}
 
 		$users = get_users(
-			array(
-				'include' => array_map( 'absint', $user_ids ),
+			[
+				'include' => \array_map( 'absint', $user_ids ),
 				'orderby' => 'include',
-			)
+			],
 		);
 
-		$players = array();
+		$players = [];
 
 		foreach ( $users as $user ) {
 			$players[] = self::format_player( $user );
@@ -100,11 +102,11 @@ class Players {
 	 * @param \WP_User $user User object.
 	 * @return array Player data.
 	 */
-	private static function format_player( \WP_User $user ): array {
-		return array(
+	private static function format_player( WP_User $user ): array {
+		return [
 			'id'        => $user->ID,
 			'name'      => $user->display_name,
-			'avatarUrl' => get_avatar_url( $user->ID, array( 'size' => 96 ) ),
-		);
+			'avatarUrl' => get_avatar_url( $user->ID, [ 'size' => 96 ] ),
+		];
 	}
 }

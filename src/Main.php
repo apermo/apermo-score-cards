@@ -73,7 +73,7 @@ class Main {
 		load_plugin_textdomain(
 			'apermo-score-cards',
 			false,
-			dirname( ASC_PLUGIN_BASENAME ) . '/languages'
+			\dirname( \ASC_PLUGIN_BASENAME ) . '/languages',
 		);
 
 		Capabilities::init();

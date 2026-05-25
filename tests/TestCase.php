@@ -16,25 +16,23 @@ use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 /**
  * Abstract base test case with Brain\Monkey support.
  */
-abstract class TestCase extends PHPUnitTestCase
-{
-    use MockeryPHPUnitIntegration;
+abstract class TestCase extends PHPUnitTestCase {
 
-    /**
-     * Set up test fixtures.
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-        Monkey\setUp();
-    }
+	use MockeryPHPUnitIntegration;
 
-    /**
-     * Tear down test fixtures.
-     */
-    protected function tearDown(): void
-    {
-        Monkey\tearDown();
-        parent::tearDown();
-    }
+	/**
+	 * Set up test fixtures.
+	 */
+	protected function setUp(): void {
+		parent::setUp();
+		Monkey\setUp();
+	}
+
+	/**
+	 * Tear down test fixtures.
+	 */
+	protected function tearDown(): void {
+		Monkey\tearDown();
+		parent::tearDown();
+	}
 }

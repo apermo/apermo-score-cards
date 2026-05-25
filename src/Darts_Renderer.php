@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace Apermo\ScoreCards;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+use WP_Block;
+
+if ( ! \defined( 'ABSPATH' ) ) {
+	exit();
 }
 
 /**
@@ -30,14 +32,14 @@ class Darts_Renderer extends Game_Renderer {
 	 *
 	 * @var array
 	 */
-	protected array $scores = array();
+	protected array $scores = [];
 
 	/**
 	 * Positions keyed by player ID.
 	 *
 	 * @var array
 	 */
-	protected array $positions = array();
+	protected array $positions = [];
 
 	/**
 	 * Finished round number.
@@ -52,7 +54,7 @@ class Darts_Renderer extends Game_Renderer {
 	 * @param array     $attributes Block attributes.
 	 * @param \WP_Block $block      Block instance.
 	 */
-	public function __construct( array $attributes, \WP_Block $block ) {
+	public function __construct( array $attributes, WP_Block $block ) {
 		parent::__construct( $attributes, $block );
 		$this->starting_score = (int) ( $attributes['startingScore'] ?? 501 );
 	}
@@ -68,10 +70,10 @@ class Darts_Renderer extends Game_Renderer {
 	 * {@inheritDoc}
 	 */
 	protected function get_default_title(): string {
-		return sprintf(
+		return \sprintf(
 			/* translators: %d: starting score */
 			__( 'Darts – %d', 'apermo-score-cards' ),
-			$this->starting_score
+			$this->starting_score,
 		);
 	}
 
@@ -86,16 +88,16 @@ class Darts_Renderer extends Game_Renderer {
 	 * {@inheritDoc}
 	 */
 	protected function get_extra_data_attributes(): array {
-		return array(
+		return [
 			'data-starting-score' => (string) $this->starting_score,
-		);
+		];
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	protected function calculate_scores(): void {
-		$this->scores        = $this->game['scores'] ?? array();
+		$this->scores        = $this->game['scores'] ?? [];
 		$this->finished_round = isset( $this->game['finishedRound'] )
 			? (int) $this->game['finishedRound']
 			: null;
@@ -105,13 +107,13 @@ class Darts_Renderer extends Game_Renderer {
 		}
 
 		// Sort players by ranking (lower remaining score is better).
-		usort(
+		\usort(
 			$this->players,
 			function ( $a, $b ) {
-				$score_a = $this->scores[ $a['id'] ]['finalScore'] ?? PHP_INT_MAX;
-				$score_b = $this->scores[ $b['id'] ]['finalScore'] ?? PHP_INT_MAX;
+				$score_a = $this->scores[ $a['id'] ]['finalScore'] ?? \PHP_INT_MAX;
+				$score_b = $this->scores[ $b['id'] ]['finalScore'] ?? \PHP_INT_MAX;
 				return $score_a <=> $score_b;
-			}
+			},
 		);
 
 		// Calculate positions with tie handling.
@@ -164,13 +166,14 @@ class Darts_Renderer extends Game_Renderer {
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ( $this->players as $player ) :
+					<?php
+					foreach ( $this->players as $player ) {
 						$player_score = $this->scores[ $player['id'] ]['finalScore'] ?? null;
 						$position     = $this->positions[ $player['id'] ] ?? 0;
 						$medal        = self::$medals[ $position ] ?? '';
 						$is_finished  = 0 === $player_score;
 
-						$row_classes = array( 'asc-darts-display__row' );
+						$row_classes = [ 'asc-darts-display__row' ];
 						if ( $position <= 3 ) {
 							$row_classes[] = 'asc-darts-display__row--podium';
 							$row_classes[] = 'asc-darts-display__row--position-' . $position;
@@ -179,13 +182,13 @@ class Darts_Renderer extends Game_Renderer {
 							$row_classes[] = 'asc-darts-display__row--finished';
 						}
 						?>
-						<tr class="<?php echo esc_attr( implode( ' ', $row_classes ) ); ?>">
+						<tr class="<?php echo esc_attr( \implode( ' ', $row_classes ) ); ?>">
 							<td class="asc-darts-display__rank">
-								<?php if ( $medal ) : ?>
+								<?php if ( $medal ) { ?>
 									<span class="asc-darts-display__medal"><?php echo esc_html( $medal ); ?></span>
-								<?php else : ?>
+								<?php } else { ?>
 									<?php echo esc_html( (string) $position ); ?>
-								<?php endif; ?>
+								<?php } ?>
 							</td>
 							<td class="asc-darts-display__player">
 								<?php self::render_avatar( $player, 'asc-darts-display__avatar' ); ?>
@@ -197,21 +200,21 @@ class Darts_Renderer extends Game_Renderer {
 								<?php echo null !== $player_score ? esc_html( (string) $player_score ) : '-'; ?>
 							</td>
 						</tr>
-					<?php endforeach; ?>
+					<?php } ?>
 				</tbody>
 			</table>
 
-			<?php if ( $this->finished_round ) : ?>
+			<?php if ( $this->finished_round ) { ?>
 				<p class="asc-darts-display__round-info">
 					<?php
-					printf(
+					\printf(
 						/* translators: %d: round number */
 						esc_html__( 'Finished after round %d', 'apermo-score-cards' ),
-						$this->finished_round
+						$this->finished_round,
 					);
 					?>
 				</p>
-			<?php endif; ?>
+			<?php } ?>
 		</div>
 		<?php
 	}

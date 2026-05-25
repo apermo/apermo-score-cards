@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace Apermo\ScoreCards;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+use WP_Block;
+
+if ( ! \defined( 'ABSPATH' ) ) {
+	exit();
 }
 
 /**
@@ -35,7 +37,7 @@ abstract class Game_Renderer {
 	 *
 	 * @var \WP_Block
 	 */
-	protected \WP_Block $block;
+	protected WP_Block $block;
 
 	/**
 	 * Block ID.
@@ -120,11 +122,11 @@ abstract class Game_Renderer {
 	 * @param array     $attributes Block attributes.
 	 * @param \WP_Block $block      Block instance.
 	 */
-	public function __construct( array $attributes, \WP_Block $block ) {
+	public function __construct( array $attributes, WP_Block $block ) {
 		$this->attributes   = $attributes;
 		$this->block        = $block;
 		$this->block_id     = $attributes['blockId'] ?? '';
-		$this->player_ids   = $attributes['playerIds'] ?? array();
+		$this->player_ids   = $attributes['playerIds'] ?? [];
 		$this->custom_title = $attributes['customTitle'] ?? '';
 		$this->post_id      = (int) ( $block->context['postId'] ?? get_the_ID() );
 	}
@@ -151,15 +153,6 @@ abstract class Game_Renderer {
 	abstract protected function get_display_class(): string;
 
 	/**
-	 * Get additional wrapper data attributes.
-	 *
-	 * @return array Data attributes keyed by attribute name.
-	 */
-	protected function get_extra_data_attributes(): array {
-		return array();
-	}
-
-	/**
 	 * Calculate game-specific scores and positions.
 	 *
 	 * Called after common setup. Subclasses should populate
@@ -182,6 +175,15 @@ abstract class Game_Renderer {
 	 * @return void
 	 */
 	abstract protected function render_actions(): void;
+
+	/**
+	 * Get additional wrapper data attributes.
+	 *
+	 * @return array Data attributes keyed by attribute name.
+	 */
+	protected function get_extra_data_attributes(): array {
+		return [];
+	}
 
 	/**
 	 * Render the block output.
@@ -210,9 +212,9 @@ abstract class Game_Renderer {
 
 		$this->calculate_scores();
 
-		ob_start();
+		\ob_start();
 		$this->render_wrapper();
-		return ob_get_clean();
+		return \ob_get_clean();
 	}
 
 	/**
@@ -221,8 +223,8 @@ abstract class Game_Renderer {
 	 * @return string Wrapper attributes string.
 	 */
 	protected function get_wrapper_attributes(): string {
-		$data = array_merge(
-			array(
+		$data = \array_merge(
+			[
 				'class'           => $this->get_css_prefix(),
 				'data-post-id'    => (string) $this->post_id,
 				'data-block-id'   => $this->block_id,
@@ -230,8 +232,8 @@ abstract class Game_Renderer {
 				'data-player-ids' => wp_json_encode( $this->player_ids ),
 				'data-players'    => wp_json_encode( $this->players ),
 				'data-game'       => $this->game ? wp_json_encode( $this->game ) : '',
-			),
-			$this->get_extra_data_attributes()
+			],
+			$this->get_extra_data_attributes(),
 		);
 
 		return get_block_wrapper_attributes( $data );
@@ -254,17 +256,17 @@ abstract class Game_Renderer {
 
 			if ( $this->can_edit ) {
 				$this->render_actions();
-				printf(
+				\printf(
 					'<div class="%s" hidden></div>',
-					esc_attr( $this->get_display_class() . '-form-container' )
+					esc_attr( $this->get_display_class() . '-form-container' ),
 				);
 			}
 		}
 
 		if ( $this->show_form ) {
-			printf(
+			\printf(
 				'<div class="%s"></div>',
-				esc_attr( $this->get_display_class() . '-form-container' )
+				esc_attr( $this->get_display_class() . '-form-container' ),
 			);
 
 			if ( $this->can_manage ) {
@@ -274,7 +276,7 @@ abstract class Game_Renderer {
 			self::render_pending_state(
 				$this->players,
 				$prefix,
-				$this->get_display_class() . '__table'
+				$this->get_display_class() . '__table',
 			);
 		}
 

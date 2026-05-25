@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Apermo\ScoreCards;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( ! \defined( 'ABSPATH' ) ) {
+	exit();
 }
 
 $renderer = new Darts_Renderer( $attributes, $block );

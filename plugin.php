@@ -21,9 +21,9 @@ namespace Apermo\ScoreCards;
 \defined( 'ABSPATH' ) || exit();
 
 \define( 'ASC_VERSION', '1.0.0' );
-\define( 'ASC_PLUGIN_DIR', \plugin_dir_path( __FILE__ ) );
-\define( 'ASC_PLUGIN_URL', \plugin_dir_url( __FILE__ ) );
-\define( 'ASC_PLUGIN_BASENAME', \plugin_basename( __FILE__ ) );
+\define( 'ASC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+\define( 'ASC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+\define( 'ASC_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 if ( ! \file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	add_action(

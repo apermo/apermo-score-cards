@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Apermo\ScoreCards;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( ! \defined( 'ABSPATH' ) ) {
+	exit();
 }
 
 /**
@@ -37,7 +37,7 @@ class Capabilities {
 	 *
 	 * @var int
 	 */
-	public const EDIT_WINDOW_SECONDS = 8 * HOUR_IN_SECONDS;
+	public const EDIT_WINDOW_SECONDS = 8 * \HOUR_IN_SECONDS;
 
 	/**
 	 * Initialize capabilities.
@@ -45,7 +45,7 @@ class Capabilities {
 	 * @return void
 	 */
 	public static function init(): void {
-		add_filter( 'map_meta_cap', array( self::class, 'map_meta_cap' ), 10, 4 );
+		add_filter( 'map_meta_cap', [ self::class, 'map_meta_cap' ], 10, 4 );
 	}
 
 	/**
@@ -58,10 +58,10 @@ class Capabilities {
 		add_role(
 			self::ROLE,
 			__( 'Score Card Maintainer', 'apermo-score-cards' ),
-			array(
+			[
 				'read'            => true,
 				self::CAPABILITY  => true,
-			)
+			],
 		);
 
 		// Add capability to administrators.
@@ -117,21 +117,21 @@ class Capabilities {
 		$post_id = $args[0] ?? 0;
 
 		if ( ! $post_id ) {
-			return array( 'do_not_allow' );
+			return [ 'do_not_allow' ];
 		}
 
 		// Check if user has the base capability.
 		if ( ! user_can( $user_id, self::CAPABILITY ) ) {
-			return array( 'do_not_allow' );
+			return [ 'do_not_allow' ];
 		}
 
 		// Check time window.
 		if ( ! self::is_within_edit_window( $post_id ) ) {
-			return array( 'do_not_allow' );
+			return [ 'do_not_allow' ];
 		}
 
 		// User has capability and is within time window.
-		return array( self::CAPABILITY );
+		return [ self::CAPABILITY ];
 	}
 
 	/**
@@ -147,8 +147,8 @@ class Capabilities {
 			return false;
 		}
 
-		$modified_time = strtotime( $post->post_modified_gmt );
-		$current_time  = time();
+		$modified_time = \strtotime( $post->post_modified_gmt );
+		$current_time  = \time();
 		$elapsed       = $current_time - $modified_time;
 
 		return $elapsed <= self::EDIT_WINDOW_SECONDS;
@@ -167,12 +167,12 @@ class Capabilities {
 			return 0;
 		}
 
-		$modified_time = strtotime( $post->post_modified_gmt );
-		$current_time  = time();
+		$modified_time = \strtotime( $post->post_modified_gmt );
+		$current_time  = \time();
 		$elapsed       = $current_time - $modified_time;
 		$remaining     = self::EDIT_WINDOW_SECONDS - $elapsed;
 
-		return max( 0, $remaining );
+		return \max( 0, $remaining );
 	}
 
 	/**
@@ -203,6 +203,6 @@ class Capabilities {
 			return __( 'Edit window closed', 'apermo-score-cards' );
 		}
 
-		return human_time_diff( time(), time() + $remaining );
+		return human_time_diff( \time(), \time() + $remaining );
 	}
 }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Apermo\ScoreCards;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( ! \defined( 'ABSPATH' ) ) {
+	exit();
 }
 
 /**
@@ -51,7 +51,7 @@ class Games {
 			return null;
 		}
 
-		return is_array( $data ) ? $data : null;
+		return \is_array( $data ) ? $data : null;
 	}
 
 	/**
@@ -64,22 +64,22 @@ class Games {
 		global $wpdb;
 
 		$prefix = self::META_PREFIX;
-		$games  = array();
+		$games  = [];
 
 		// Get all meta keys that match our prefix.
 		$meta_rows = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT meta_key, meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key LIKE %s",
 				$post_id,
-				$wpdb->esc_like( $prefix ) . '%'
-			)
+				$wpdb->esc_like( $prefix ) . '%',
+			),
 		);
 
 		foreach ( $meta_rows as $row ) {
-			$block_id = substr( $row->meta_key, strlen( $prefix ) );
+			$block_id = \substr( $row->meta_key, \strlen( $prefix ) );
 			$data     = maybe_unserialize( $row->meta_value );
 
-			if ( is_array( $data ) ) {
+			if ( \is_array( $data ) ) {
 				$games[ $block_id ] = $data;
 			}
 		}
@@ -100,17 +100,17 @@ class Games {
 
 		$data = wp_parse_args(
 			$data,
-			array(
+			[
 				'blockId'     => $block_id,
 				'gameType'    => '',
-				'playerIds'   => array(),
+				'playerIds'   => [],
 				'status'      => 'in_progress',
-				'rounds'      => array(),
-				'finalScores' => array(),
+				'rounds'      => [],
+				'finalScores' => [],
 				'winnerId'    => null,
 				'startedAt'   => current_time( 'c' ),
 				'completedAt' => null,
-			)
+			],
 		);
 
 		// update_post_meta returns:
@@ -167,24 +167,24 @@ class Games {
 		// Create game if it doesn't exist.
 		if ( ! $game ) {
 			// Extract player IDs from round data.
-			$player_ids = array();
+			$player_ids = [];
 			foreach ( $round_data as $key => $value ) {
-				if ( is_numeric( $key ) ) {
+				if ( \is_numeric( $key ) ) {
 					$player_ids[] = (int) $key;
 				}
 			}
 
-			$game = array(
+			$game = [
 				'blockId'     => $block_id,
 				'gameType'    => $game_type,
 				'playerIds'   => $player_ids,
 				'status'      => 'in_progress',
-				'rounds'      => array(),
-				'finalScores' => array(),
+				'rounds'      => [],
+				'finalScores' => [],
 				'winnerId'    => null,
 				'startedAt'   => current_time( 'c' ),
 				'completedAt' => null,
-			);
+			];
 		}
 
 		$game['rounds'][] = $round_data;

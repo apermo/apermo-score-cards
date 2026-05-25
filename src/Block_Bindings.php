@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace Apermo\ScoreCards;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+use WP_Block;
+
+if ( ! \defined( 'ABSPATH' ) ) {
+	exit();
 }
 
 /**
@@ -31,7 +33,7 @@ class Block_Bindings {
 	 * @return void
 	 */
 	public static function init(): void {
-		add_action( 'init', array( self::class, 'register_block_bindings' ) );
+		add_action( 'init', [ self::class, 'register_block_bindings' ] );
 	}
 
 	/**
@@ -40,17 +42,17 @@ class Block_Bindings {
 	 * @return void
 	 */
 	public static function register_block_bindings(): void {
-		if ( ! function_exists( 'register_block_bindings_source' ) ) {
+		if ( ! \function_exists( 'register_block_bindings_source' ) ) {
 			return;
 		}
 
 		register_block_bindings_source(
 			self::SOURCE_NAME,
-			array(
+			[
 				'label'              => __( 'Game Data', 'apermo-score-cards' ),
-				'get_value_callback' => array( self::class, 'get_binding_value' ),
-				'uses_context'       => array( 'postId', 'apermo-score-cards/blockId' ),
-			)
+				'get_value_callback' => [ self::class, 'get_binding_value' ],
+				'uses_context'       => [ 'postId', 'apermo-score-cards/blockId' ],
+			],
 		);
 	}
 
@@ -62,7 +64,7 @@ class Block_Bindings {
 	 * @param string    $attribute_name The attribute name.
 	 * @return mixed The binding value.
 	 */
-	public static function get_binding_value( array $source_args, \WP_Block $block_instance, string $attribute_name ): mixed {
+	public static function get_binding_value( array $source_args, WP_Block $block_instance, string $attribute_name ): mixed {
 		$key      = $source_args['key'] ?? '';
 		$post_id  = $block_instance->context['postId'] ?? get_the_ID();
 		$block_id = $block_instance->context['apermo-score-cards/blockId'] ?? null;
@@ -78,11 +80,11 @@ class Block_Bindings {
 		}
 
 		// Handle nested keys (e.g., 'finalScores.1').
-		$keys  = explode( '.', $key );
+		$keys  = \explode( '.', $key );
 		$value = $game;
 
 		foreach ( $keys as $k ) {
-			if ( is_array( $value ) && isset( $value[ $k ] ) ) {
+			if ( \is_array( $value ) && isset( $value[ $k ] ) ) {
 				$value = $value[ $k ];
 			} else {
 				return null;
@@ -114,7 +116,7 @@ class Block_Bindings {
 		$game = Games::get( $post_id, $block_id );
 
 		if ( ! $game || empty( $game['playerIds'] ) ) {
-			return array();
+			return [];
 		}
 
 		return Players::get_by_ids( $game['playerIds'] );

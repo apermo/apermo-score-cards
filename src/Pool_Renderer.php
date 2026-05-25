@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Apermo\ScoreCards;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( ! \defined( 'ABSPATH' ) ) {
+	exit();
 }
 
 /**
@@ -23,7 +23,7 @@ class Pool_Renderer extends Game_Renderer {
 	 *
 	 * @var array
 	 */
-	protected array $games_list = array();
+	protected array $games_list = [];
 
 	/**
 	 * Whether there are any games.
@@ -37,14 +37,14 @@ class Pool_Renderer extends Game_Renderer {
 	 *
 	 * @var array
 	 */
-	protected array $standings = array();
+	protected array $standings = [];
 
 	/**
 	 * Positions keyed by player ID.
 	 *
 	 * @var array
 	 */
-	protected array $positions = array();
+	protected array $positions = [];
 
 	/**
 	 * Whether game is completed.
@@ -78,21 +78,21 @@ class Pool_Renderer extends Game_Renderer {
 	 * {@inheritDoc}
 	 */
 	protected function calculate_scores(): void {
-		$this->games_list   = $this->game['games'] ?? array();
+		$this->games_list   = $this->game['games'] ?? [];
 		$this->has_games    = ! empty( $this->games_list );
 		$this->is_completed = 'completed' === $this->status;
-		$stored_positions   = $this->game['positions'] ?? array();
-		$stored_scores      = $this->game['finalScores'] ?? array();
+		$stored_positions   = $this->game['positions'] ?? [];
+		$stored_scores      = $this->game['finalScores'] ?? [];
 
 		// Initialize standings.
 		foreach ( $this->player_ids as $pid ) {
-			$this->standings[ $pid ] = array(
+			$this->standings[ $pid ] = [
 				'playerId'   => $pid,
 				'wins'       => 0,
 				'losses'     => 0,
 				'points'     => 0,
-				'headToHead' => array(),
-			);
+				'headToHead' => [],
+			];
 		}
 
 		// Calculate standings from games.
@@ -113,7 +113,10 @@ class Pool_Renderer extends Game_Renderer {
 					$this->standings[ $winner_id ]['points'] += 3;
 				}
 				if ( ! isset( $this->standings[ $winner_id ]['headToHead'][ $loser_id ] ) ) {
-					$this->standings[ $winner_id ]['headToHead'][ $loser_id ] = array( 'wins' => 0, 'losses' => 0 );
+					$this->standings[ $winner_id ]['headToHead'][ $loser_id ] = [
+						'wins' => 0,
+						'losses' => 0,
+					];
 				}
 				$this->standings[ $winner_id ]['headToHead'][ $loser_id ]['wins']++;
 			}
@@ -124,7 +127,10 @@ class Pool_Renderer extends Game_Renderer {
 					$this->standings[ $loser_id ]['points'] += 1;
 				}
 				if ( ! isset( $this->standings[ $loser_id ]['headToHead'][ $winner_id ] ) ) {
-					$this->standings[ $loser_id ]['headToHead'][ $winner_id ] = array( 'wins' => 0, 'losses' => 0 );
+					$this->standings[ $loser_id ]['headToHead'][ $winner_id ] = [
+						'wins' => 0,
+						'losses' => 0,
+					];
 				}
 				$this->standings[ $loser_id ]['headToHead'][ $winner_id ]['losses']++;
 			}
@@ -139,9 +145,9 @@ class Pool_Renderer extends Game_Renderer {
 		}
 
 		// Sort standings.
-		uasort(
+		\uasort(
 			$this->standings,
-			function ( $a, $b ) {
+			static function ( $a, $b ) {
 				if ( $a['points'] !== $b['points'] ) {
 					return $b['points'] - $a['points'];
 				}
@@ -164,7 +170,7 @@ class Pool_Renderer extends Game_Renderer {
 				}
 
 				return wp_rand( -1, 1 );
-			}
+			},
 		);
 
 		// Calculate positions.
@@ -177,7 +183,7 @@ class Pool_Renderer extends Game_Renderer {
 
 			foreach ( $this->standings as $pid => $s ) {
 				$a_total = $s['wins'] + $s['losses'];
-				$a_pct   = $a_total > 0 ? round( $s['wins'] / $a_total, 4 ) : 0;
+				$a_pct   = $a_total > 0 ? \round( $s['wins'] / $a_total, 4 ) : 0;
 				$tie_key = $s['points'] . '-' . $a_pct;
 
 				if ( $tie_key !== $prev_key ) {
@@ -241,31 +247,32 @@ class Pool_Renderer extends Game_Renderer {
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ( $this->standings as $pid => $s ) :
+					<?php
+					foreach ( $this->standings as $pid => $s ) {
 						$player   = $this->players_map[ $pid ] ?? null;
 						$position = $this->positions[ $pid ] ?? 0;
 						$medal    = self::$medals[ $position ] ?? '';
 						$total    = $s['wins'] + $s['losses'];
-						$win_pct  = $total > 0 ? (int) round( ( $s['wins'] / $total ) * 100 ) : 0;
+						$win_pct  = $total > 0 ? (int) \round( ( $s['wins'] / $total ) * 100 ) : 0;
 
 						if ( ! $player ) {
 							continue;
 						}
 
-						$row_classes = array( 'asc-pool-standings__row' );
+						$row_classes = [ 'asc-pool-standings__row' ];
 						if ( $this->has_games && $position <= 3 ) {
 							$row_classes[] = 'asc-pool-standings__row--position-' . $position;
 						}
 						?>
-						<tr class="<?php echo esc_attr( implode( ' ', $row_classes ) ); ?>">
+						<tr class="<?php echo esc_attr( \implode( ' ', $row_classes ) ); ?>">
 							<td class="asc-pool-standings__rank">
-								<?php if ( $this->has_games && $medal ) : ?>
+								<?php if ( $this->has_games && $medal ) { ?>
 									<?php echo esc_html( $medal ); ?>
-								<?php elseif ( $this->has_games ) : ?>
+								<?php } elseif ( $this->has_games ) { ?>
 									<?php echo esc_html( (string) $position ); ?>
-								<?php else : ?>
+								<?php } else { ?>
 									-
-								<?php endif; ?>
+								<?php } ?>
 							</td>
 							<td class="asc-pool-standings__player">
 								<?php self::render_avatar( $player, 'asc-pool-standings__avatar' ); ?>
@@ -276,7 +283,7 @@ class Pool_Renderer extends Game_Renderer {
 							<td><?php echo esc_html( (string) $s['losses'] ); ?></td>
 							<td><?php echo $total > 0 ? esc_html( $win_pct . '%' ) : '-'; ?></td>
 						</tr>
-					<?php endforeach; ?>
+					<?php } ?>
 				</tbody>
 			</table>
 		</div>
@@ -293,7 +300,8 @@ class Pool_Renderer extends Game_Renderer {
 		<div class="asc-pool-games">
 			<h4 class="asc-pool-games__title"><?php esc_html_e( 'Games', 'apermo-score-cards' ); ?></h4>
 			<div class="asc-pool-games__list">
-				<?php foreach ( $this->games_list as $game_index => $g ) :
+				<?php
+				foreach ( $this->games_list as $game_index => $g ) {
 					$player1   = $this->players_map[ $g['player1'] ] ?? null;
 					$player2   = $this->players_map[ $g['player2'] ] ?? null;
 					$winner_id = $g['winnerId'] ?? null;
@@ -318,24 +326,24 @@ class Pool_Renderer extends Game_Renderer {
 							</div>
 						</div>
 						<div class="asc-pool-games__details">
-							<?php if ( isset( $g['ballsLeft'] ) && $g['ballsLeft'] > 0 ) : ?>
+							<?php if ( isset( $g['ballsLeft'] ) && $g['ballsLeft'] > 0 ) { ?>
 								<span class="asc-pool-games__balls-left">
 									<?php
-									printf(
+									\printf(
 										/* translators: %d: number of balls left */
 										esc_html__( '%d balls left', 'apermo-score-cards' ),
-										$g['ballsLeft']
+										$g['ballsLeft'],
 									);
 									?>
 								</span>
-							<?php endif; ?>
-							<?php if ( ! empty( $g['eightBallFoul'] ) ) : ?>
+							<?php } ?>
+							<?php if ( ! empty( $g['eightBallFoul'] ) ) { ?>
 								<span class="asc-pool-games__foul">
 									<?php esc_html_e( '8-ball foul', 'apermo-score-cards' ); ?>
 								</span>
-							<?php endif; ?>
+							<?php } ?>
 						</div>
-						<?php if ( $this->can_manage ) : ?>
+						<?php if ( $this->can_manage ) { ?>
 							<div class="asc-pool-games__actions">
 								<button type="button" class="asc-pool-games__edit-btn" data-action="edit">
 									<?php esc_html_e( 'Edit', 'apermo-score-cards' ); ?>
@@ -344,9 +352,9 @@ class Pool_Renderer extends Game_Renderer {
 									<?php esc_html_e( 'Delete', 'apermo-score-cards' ); ?>
 								</button>
 							</div>
-						<?php endif; ?>
+						<?php } ?>
 					</div>
-				<?php endforeach; ?>
+				<?php } ?>
 			</div>
 		</div>
 		<?php
@@ -358,37 +366,37 @@ class Pool_Renderer extends Game_Renderer {
 	 * @return void
 	 */
 	protected function render_manager_actions(): void {
-		$players_with_games = array();
+		$players_with_games = [];
 		foreach ( $this->games_list as $g ) {
 			$players_with_games[ $g['player1'] ?? 0 ] = true;
 			$players_with_games[ $g['player2'] ?? 0 ] = true;
 		}
 		?>
 		<div class="asc-pool__actions">
-			<?php if ( 'completed' !== $this->status ) : ?>
+			<?php if ( 'completed' !== $this->status ) { ?>
 				<button type="button" class="asc-pool__add-game-btn">
 					<?php esc_html_e( 'Add Game', 'apermo-score-cards' ); ?>
 				</button>
 				<button type="button" class="asc-pool__edit-players-btn">
 					<?php esc_html_e( 'Edit Players', 'apermo-score-cards' ); ?>
 				</button>
-				<?php if ( $this->has_games ) : ?>
+				<?php if ( $this->has_games ) { ?>
 					<button type="button" class="asc-pool__complete-btn">
 						<?php esc_html_e( 'Finish', 'apermo-score-cards' ); ?>
 					</button>
-				<?php endif; ?>
-			<?php else : ?>
+				<?php } ?>
+			<?php } else { ?>
 				<button type="button" class="asc-pool__continue-btn">
 					<?php esc_html_e( 'Continue', 'apermo-score-cards' ); ?>
 				</button>
 				<?php $this->render_new_game_button(); ?>
-			<?php endif; ?>
+			<?php } ?>
 		</div>
 		<div class="asc-pool-form-container" hidden></div>
 		<div
 			class="asc-player-selector-container"
 			hidden
-			data-locked-player-ids="<?php echo esc_attr( wp_json_encode( array_keys( $players_with_games ) ) ); ?>"
+			data-locked-player-ids="<?php echo esc_attr( wp_json_encode( \array_keys( $players_with_games ) ) ); ?>"
 		></div>
 		<?php
 	}
