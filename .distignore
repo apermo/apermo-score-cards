@@ -1,0 +1,57 @@
+# Files and directories excluded from the production plugin distribution.
+# Used by wordpress.org SVN deploys and the WordPress Plugin Check action.
+
+# Version control
+.git
+.gitignore
+.gitattributes
+.github
+
+# Hidden dev tooling
+.ddev
+.husky
+.gemini
+.vscode
+.idea
+.editorconfig
+.eslintrc.js
+.lintstagedrc.js
+.stylelintrc.json
+.wp-env.json
+.lighthouserc.js
+.distignore
+.auth
+
+# Test scaffolding
+tests
+e2e
+phpcs.xml.dist
+phpstan.neon.dist
+phpunit.xml.dist
+playwright.config.js
+playwright-report
+test-results
+wp-tests-config.php
+wp-tests-config.php.dist
+webpack.config.js
+
+# Package manager manifests (composer.json declares this is a wordpress-plugin,
+# but Plugin Check flags it as an "application" file — exclude from dist).
+composer.json
+composer.lock
+package.json
+package-lock.json
+node_modules
+
+# Project meta
+CHANGELOG.md
+CLAUDE.md
+HANDOVER.md
+codecov.yml
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+.phpunit.cache
+.phpunit.result.cache
