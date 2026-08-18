@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Plugin_Name\Admin;
+namespace Apermo\ScoreCards\Admin;
 
-use Plugin_Name\Main;
+use Apermo\ScoreCards\Main;
 
 /**
  * Routes the plugin's "Deactivate" link through a confirmation screen so that
@@ -20,12 +20,12 @@ class DeactivationFlow {
 	/**
 	 * Hidden admin page slug used for the confirmation screen.
 	 */
-	public const CONFIRM_PAGE = 'plugin-name-deactivate';
+	public const CONFIRM_PAGE = 'apermo-score-cards-deactivate';
 
 	/**
 	 * admin-post.php / admin_action_* handler key for the destructive submission.
 	 */
-	public const DELETE_ACTION = 'plugin_name_deactivate_and_delete';
+	public const DELETE_ACTION = 'apermo_score_cards_deactivate_and_delete';
 
 	/**
 	 * Wires the deactivation flow into WordPress.
@@ -61,7 +61,7 @@ class DeactivationFlow {
 		$actions['deactivate'] = \sprintf(
 			'<a href="%s">%s</a>',
 			esc_url( $url ),
-			esc_html__( 'Deactivate', 'plugin-name' ),
+			esc_html__( 'Deactivate', 'apermo-score-cards' ),
 		);
 
 		return $actions;
@@ -75,8 +75,8 @@ class DeactivationFlow {
 	public function register_hidden_page(): void {
 		add_submenu_page(
 			'',
-			__( 'Deactivate plugin-name', 'plugin-name' ),
-			__( 'Deactivate plugin-name', 'plugin-name' ),
+			__( 'Deactivate apermo-score-cards', 'apermo-score-cards' ),
+			__( 'Deactivate apermo-score-cards', 'apermo-score-cards' ),
 			$this->current_capability(),
 			self::CONFIRM_PAGE,
 			[ $this, 'render_confirm_page' ],
@@ -90,7 +90,7 @@ class DeactivationFlow {
 	 */
 	public function render_confirm_page(): void {
 		if ( ! current_user_can( $this->current_capability() ) ) {
-			wp_die( esc_html__( 'You do not have permission to deactivate this plugin.', 'plugin-name' ), 403 );
+			wp_die( esc_html__( 'You do not have permission to deactivate this plugin.', 'apermo-score-cards' ), 403 );
 		}
 
 		$basename = plugin_basename( Main::file() );
@@ -123,7 +123,7 @@ class DeactivationFlow {
 	 * Builds the standard WordPress deactivate URL with nonce, used by the
 	 * "keep data" path on the confirmation screen.
 	 *
-	 * @param string $basename Plugin basename, e.g. plugin-name/plugin.php.
+	 * @param string $basename Plugin basename, e.g. apermo-score-cards/plugin.php.
 	 *
 	 * @return string
 	 */
@@ -148,11 +148,11 @@ class DeactivationFlow {
 	 */
 	public function handle_destructive(): void {
 		if ( ! is_user_logged_in() ) {
-			wp_die( esc_html__( 'You must be logged in.', 'plugin-name' ), 403 );
+			wp_die( esc_html__( 'You must be logged in.', 'apermo-score-cards' ), 403 );
 		}
 
 		if ( ! current_user_can( $this->current_capability() ) ) {
-			wp_die( esc_html__( 'You do not have permission to deactivate this plugin.', 'plugin-name' ), 403 );
+			wp_die( esc_html__( 'You do not have permission to deactivate this plugin.', 'apermo-score-cards' ), 403 );
 		}
 
 		check_admin_referer( self::DELETE_ACTION );
@@ -162,7 +162,7 @@ class DeactivationFlow {
 			: '';
 
 		if ( $confirm !== '1' ) {
-			wp_die( esc_html__( 'Confirmation checkbox was not checked.', 'plugin-name' ), 400 );
+			wp_die( esc_html__( 'Confirmation checkbox was not checked.', 'apermo-score-cards' ), 400 );
 		}
 
 		$this->cleanup_plugin_data();
@@ -173,7 +173,7 @@ class DeactivationFlow {
 		$redirect = add_query_arg(
 			[
 				'deactivate'        => 'true',
-				'plugin_name_wiped' => '1',
+				'apermo_score_cards_wiped' => '1',
 			],
 			is_network_admin() ? network_admin_url( 'plugins.php' ) : admin_url( 'plugins.php' ),
 		);
@@ -193,9 +193,9 @@ class DeactivationFlow {
 	 * requires iterating sites explicitly.
 	 *
 	 * Example extensions:
-	 * - $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}plugin_name_…" );
-	 * - delete_metadata( 'post', 0, 'plugin_name_…', '', true );
-	 * - $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_plugin_name_%'" );
+	 * - $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}apermo_score_cards_…" );
+	 * - delete_metadata( 'post', 0, 'apermo_score_cards_…', '', true );
+	 * - $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_apermo_score_cards_%'" );
 	 *
 	 * The CSV-export "backup before delete" pattern can also live alongside
 	 * this method as a third option on the confirmation screen — see the
@@ -207,14 +207,14 @@ class DeactivationFlow {
 		if ( is_multisite() && is_plugin_active_for_network( plugin_basename( Main::file() ) ) ) {
 			// Network-activated: site options live in network meta;
 			// `delete_site_option()` works regardless of the current blog.
-			delete_site_option( 'plugin_name_settings' );
+			delete_site_option( 'apermo_score_cards_settings' );
 
 			/*
 			 * To wipe per-site data on every site, iterate explicitly:
 			 *
 			 *     foreach ( get_sites( [ 'fields' => 'ids' ] ) as $site_id ) {
 			 *         switch_to_blog( $site_id );
-			 *         delete_option( 'plugin_name_per_site_settings' );
+			 *         delete_option( 'apermo_score_cards_per_site_settings' );
 			 *         restore_current_blog();
 			 *     }
 			 */
@@ -222,6 +222,6 @@ class DeactivationFlow {
 		}
 
 		// Per-site activation or single-site install: delete on the current site.
-		delete_option( 'plugin_name_settings' );
+		delete_option( 'apermo_score_cards_settings' );
 	}
 }

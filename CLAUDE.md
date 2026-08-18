@@ -139,8 +139,8 @@ After running `setup.sh` on a new project derived from this template, remind the
 ## Placeholder conventions
 
 The setup script replaces these across all files:
-- `plugin-name` → slug (kebab-case)
-- `Plugin_Name` → PascalCase
-- `PLUGIN_NAME` → UPPER_SNAKE_CASE
-- `plugin_name` → snake_case
+- `apermo-score-cards` → slug (kebab-case)
+- `Apermo_Score_Cards` → PascalCase
+- `APERMO_SCORE_CARDS` → UPPER_SNAKE_CASE
+- `apermo_score_cards` → snake_case
 - Placeholder namespace → chosen namespace

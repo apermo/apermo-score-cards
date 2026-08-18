@@ -1,5 +1,5 @@
 {
-    "core": null,
-    "themes": ["."],
-    "phpVersion": "8.4"
+	"core": null,
+	"plugins": ["."],
+	"testsEnvironment": false
 }

@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Plugin_Name;
+namespace Apermo\ScoreCards;
 
-// OPT-IN: confirm-deactivate — delete this use statement if you declined the example.
-use Plugin_Name\Admin\DeactivationFlow;
+use Apermo\ScoreCards\Admin\DeactivationFlow;
 
 /**
  * Bootstraps the plugin.
  */
 class Main {
 
-	public const VERSION = '0.1.0';
+	public const VERSION = '1.0.0';
 
 	/**
 	 * Holds the main plugin file path.
@@ -51,7 +50,8 @@ class Main {
 	 * @return void
 	 */
 	public static function activate(): void {
-		// Activation logic.
+		Capabilities::register();
+		flush_rewrite_rules();
 	}
 
 	/**
@@ -60,7 +60,8 @@ class Main {
 	 * @return void
 	 */
 	public static function deactivate(): void {
-		// Deactivation logic.
+		Capabilities::unregister();
+		flush_rewrite_rules();
 	}
 
 	/**
@@ -69,7 +70,19 @@ class Main {
 	 * @return void
 	 */
 	public static function boot(): void {
-		// OPT-IN: confirm-deactivate — delete the next 3 lines if you declined the example.
+		load_plugin_textdomain(
+			'apermo-score-cards',
+			false,
+			\dirname( \ASC_PLUGIN_BASENAME ) . '/languages',
+		);
+
+		Capabilities::init();
+		Players::init();
+		Games::init();
+		REST_API::init();
+		Block_Bindings::init();
+		Blocks::init();
+
 		if ( is_admin() ) {
 			( new DeactivationFlow() )->register();
 		}
